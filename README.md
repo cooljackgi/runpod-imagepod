@@ -1,11 +1,12 @@
 # runpod-imagepod
 
-Minimaler Build-Kontext fuer einen RunPod-Bildpod auf Basis von `runpod/worker-comfyui:5.1.0-base`.
+Minimaler Build-Kontext fuer einen RunPod-Bildworker auf Basis von `runpod/worker-comfyui:5.1.0-base`.
 
 Ziel:
 - keine Modelle im Image
 - Modelle liegen persistent auf `/workspace/models` oder `/runpod-volume/models`
-- Start erfolgt ueber `repair_and_start_imagepod.sh`
+- das Repo dient als Build-Quelle fuer RunPod Serverless / Worker-Builds
+- `repair_and_start_imagepod.sh` bleibt als Reparatur-/Debug-Skript fuer Pods nutzbar
 
 Erwartete Modellordner:
 - `checkpoints`
@@ -19,6 +20,5 @@ Erwartete Modellordner:
 - `ipadapter`
 - `insightface`
 
-CI:
-- GitHub Actions baut und pushed das Image nach `ghcr.io/cooljackgi/runpod-imagepod`
-- Tags: `latest` und `sha-<commit>`
+Wichtig:
+- Kein `CMD` im Dockerfile ueberschreiben, damit der Base-Worker-Start von `runpod/worker-comfyui:5.1.0-base` erhalten bleibt.
