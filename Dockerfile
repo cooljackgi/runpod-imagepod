@@ -13,7 +13,9 @@ COPY link_workspace_models.sh /usr/local/bin/link_workspace_models.sh
 COPY repair_and_start_imagepod.sh /usr/local/bin/repair_and_start_imagepod.sh
 
 RUN cd /comfyui && git fetch origin master && git reset --hard origin/master \
-    && pip install -r requirements.txt \
+    && grep -v -E "comfyui-frontend-package|comfyui-workflow-templates" requirements.txt > /tmp/requirements-basic.txt \
+    && pip install -r /tmp/requirements-basic.txt \
+    && pip install comfyui-frontend-package comfyui-workflow-templates || true \
     && chmod +x /usr/local/bin/link_workspace_models.sh /usr/local/bin/repair_and_start_imagepod.sh \
     && mkdir -p /workspace /runpod-volume \
     && rm -rf /workspace/models \

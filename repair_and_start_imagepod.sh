@@ -30,7 +30,8 @@ cd "$COMFY_DIR"
 git fetch origin master
 git reset --hard origin/master
 
-"$PYTHON_BIN" -m pip install -r "$COMFY_DIR/requirements.txt"
+grep -v -E "comfyui-frontend-package|comfyui-workflow-templates" "$COMFY_DIR/requirements.txt" > /tmp/requirements-basic.txt
+"$PYTHON_BIN" -m pip install -r /tmp/requirements-basic.txt
 "$PYTHON_BIN" -m pip install comfyui-frontend-package comfyui-workflow-templates || true
 
 /usr/local/bin/link_workspace_models.sh

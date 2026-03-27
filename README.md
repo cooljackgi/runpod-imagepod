@@ -18,3 +18,7 @@ Erwartete Modellordner:
 - `clip_vision`
 - `ipadapter`
 - `insightface`
+
+CI:
+- GitHub Actions baut und pushed das Image nach `ghcr.io/cooljackgi/runpod-imagepod`
+- Tags: `latest` und `sha-<commit>`
