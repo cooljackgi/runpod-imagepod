@@ -6,6 +6,10 @@ RUNPOD_MODELS="${RUNPOD_MODELS:-/runpod-volume/models}"
 COMFY_MODELS="${COMFY_MODELS:-/comfyui/models}"
 
 resolve_models_root() {
+  if [ -L "$WORKSPACE_MODELS" ]; then
+    printf '%s\n' "$RUNPOD_MODELS"
+    return
+  fi
   if [ -d "$WORKSPACE_MODELS" ]; then
     printf '%s\n' "$WORKSPACE_MODELS"
     return
