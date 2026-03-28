@@ -27,8 +27,6 @@ echo "Comfy dir: $COMFY_DIR"
 echo "Workspace models: $MODELS_ROOT"
 
 cd "$COMFY_DIR"
-git fetch origin master
-git reset --hard origin/master
 
 grep -v -E "comfyui-frontend-package|comfyui-workflow-templates" "$COMFY_DIR/requirements.txt" > /tmp/requirements-basic.txt
 "$PYTHON_BIN" -m pip install -r /tmp/requirements-basic.txt

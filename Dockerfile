@@ -1,15 +1,16 @@
 FROM runpod/worker-comfyui:5.1.0-base
 
 # Build source for a RunPod image-generation worker.
-# Keep the base worker entrypoint intact so the resulting image can be used
-# by RunPod Serverless, while still preparing ComfyUI and persistent model links.
+# Keep the bundled ComfyUI checkout from the base image intact so the
+# serverless worker stays on the same CUDA/Torch-compatible stack as the
+# proven direct pod path.
 
 WORKDIR /workspace/chat+bild
 
 COPY link_workspace_models.sh /usr/local/bin/link_workspace_models.sh
 COPY repair_and_start_imagepod.sh /usr/local/bin/repair_and_start_imagepod.sh
 
-RUN cd /comfyui && git fetch origin master && git reset --hard origin/master \
+RUN cd /comfyui \
     && grep -v -E "comfyui-frontend-package|comfyui-workflow-templates" requirements.txt > /tmp/requirements-basic.txt \
     && pip install -r /tmp/requirements-basic.txt \
     && pip install comfyui-frontend-package comfyui-workflow-templates || true \
